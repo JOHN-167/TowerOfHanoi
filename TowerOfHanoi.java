@@ -6,15 +6,20 @@ import java.awt.*;
 import java.util.*;
 
 public class TowerOfHanoi extends JFrame {
-    private Stack<Disk> pegOne = new Stack<>();
-    private Stack<Disk> pegTwo = new Stack<>();
-    private Stack<Disk> pegThree = new Stack<>();
+    private Stack<Disk>[] pegs = new Stack<>[3];
     private Random rand = new Random(); 
+    private Canvas canvas = new Canvas();
     TowerOfHanoi(int disks) {
+        pegs[0] = new Stack<>();
+        pegs[1] = new Stack<>();
+        pegs[2] = new Stack<>();
         for (int i = disks; i > 0; i--){
-            pegOne.add(new Disk(new Color(rand.nextInt(255), rand.nextInt(255),
+            pegs[0].add(new Disk(new Color(rand.nextInt(255), rand.nextInt(255),
                                 rand.nextInt(255), i)));
         }
+        add(canvas);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600,480);
     }
     public static void main(String[] args) {
         new TowerOfHanoi(4);
@@ -28,14 +33,30 @@ public class TowerOfHanoi extends JFrame {
         }
     }
     private void moveDisk(int source, int dest) {
-
+        if (pegs[source].size() != 0){
+            pegs[dest].add(pegs[source].pop());
+            canvas.revalidate();
+            canvas.repaint();
+        }
     }
     private class Disk {
         private Color color;
         private int size;
-        Disk(Color color, int Size) {
+        Disk(Color color, int size) {
             this.color = color;
             this.size = size;
+        }
+    }
+    private class Canvas extends JPanel {
+        Canvas(){
+            setBackground(Color.WHITE);
+        }
+        @Override
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+            //paint pegs[0]
+            //paint pegs[1]
+            //paint pegs[2]
         }
     }
 }
