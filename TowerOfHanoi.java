@@ -14,8 +14,8 @@ public class TowerOfHanoi extends JFrame {
         pegs[1] = new Stack<>();
         pegs[2] = new Stack<>();
         for (int i = disks; i > 0; i--){
-            pegs[0].add(new Disk(new Color(rand.nextInt(255), rand.nextInt(255),
-                                rand.nextInt(255), i)));
+            pegs[0].push(new Disk(new Color(rand.nextInt(255), rand.nextInt(255),
+                                rand.nextInt(255)), i));
         }
         add(canvas);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
